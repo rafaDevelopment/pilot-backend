@@ -13,7 +13,7 @@ router.post("/login", async (req, res) => {
     const cesfamCoord = await db.CesfamCoordinator.findOne({ where: { email: req.body.email } });
     if (!cesfamCoord) return res.status(401).json({ error: "Credenciales inválidas" });
     const validPassword = await bcrypt.compare(
-      req.body.password,
+      req.body.password || '',
       cesfamCoord.get().password
     );
     if (!validPassword)

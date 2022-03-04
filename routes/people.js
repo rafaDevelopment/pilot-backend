@@ -15,7 +15,7 @@ router.post("/login", async (req, res) => {
   if (person.status == 0) return res.status(403).json({ error: "Aún no has sido aceptado" });
   if (person.status == 2) return res.status(403).json({ error: "Has sido rechazado" });
   const validPassword = await bcrypt.compare(
-    req.body.password,
+    req.body.password || '',
     person.get().password
   );
   if (!validPassword)
